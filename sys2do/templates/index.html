@@ -1,0 +1,7 @@
+<%inherit file="master.html"/>
+
+<form action="/p" method="post" enctype="multipart/form-data">
+	${ xsrf_form_html() }
+	<input type="file" name="name" />
+	<input type="submit" value="upload"/>
+</form>

@@ -1,0 +1,56 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+<head>
+	<title><%block name="title">BookStore<%block name="subtitle"></%block></%block></title>
+	
+	<link rel="stylesheet" type="text/css" href="${ static_url('css/reset.css') }" />
+	<link rel="stylesheet" type="text/css" href="${ static_url('css/grid960.css') }" />
+	<link rel="stylesheet" type="text/css" href="${ static_url('css/type.css') }" />
+	<link rel="stylesheet" type="text/css" href="${ static_url('css/tables.css') }" />
+	<link rel="stylesheet" type="text/css" href="${ static_url('css/forms.css') }" />
+	<link rel="stylesheet" type="text/css" href="${ static_url('css/helpers.css') }" />
+	<link rel="stylesheet" type="text/css" href="${ static_url('css/ux.css') }" />	
+	
+	<link rel="stylesheet" type="text/css" href="${ static_url('css/screen.css') }" />
+	
+	<%block name="extCSS"></%block>
+	
+	<script type="text/javascript" src="${ static_url('js/jquery-1.6.min.js') }"></script>
+	<script language="JavaScript" type="text/javascript">
+    //<![CDATA[
+          %if handler.need_flash():
+          	$(document).ready(function(){
+	          	alert("${handler.flash()}");
+          	});
+          %endif
+    //]]>
+   </script>
+   <%block name="extJavaScript"></%block>
+</head>
+<body>
+                
+
+<div id="container" class="outter round_5">
+	<%block name="header">
+		<div class="full height_100" id="header">
+			<%block name="header_menu">
+				
+			</%block>
+		</div>
+	</%block>
+    
+    <%block name="main">
+    	<div class="full height_500" id="main">
+    		${self.body()}
+    	</div>
+    </%block>
+    
+    <%block name="footer">
+		<div class="full" id="footer"><p class="obj_right">Powered By <a href="http://www.sys2do.com">www.sys2do.com</a></p></div>
+	</%block>
+</div>
+
+     
+</body>
+</html>
