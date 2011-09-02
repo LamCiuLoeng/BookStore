@@ -18,4 +18,4 @@ metadata = DeclarativeBase.metadata
 DBSession.configure(bind = engine)
 
 from auth import User, Group, Permission
-#from logic import *
+from logic import *

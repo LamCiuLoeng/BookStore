@@ -1,0 +1,10 @@
+<%inherit file="master.html"/>
+
+
+	<p>User Name : ${values.get("user_name","")}</p>
+	<p>E-mail : ${values.get("email_address","")}</p>
+	<p>Display Name : ${values.get("display_name","")}</p>
+
+<a href="/user?action=update&id=${values.get('id',None)}">Edit</a>
+<a href="/user?action=delete&id=${values.get('id',None)}">Delete</a>
+<a href="/user?action=list">Return</a>

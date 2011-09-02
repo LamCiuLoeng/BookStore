@@ -1,0 +1,20 @@
+<%inherit file="master.html"/>
+
+<form action="/user" method="post">
+	${ xsrf_form_html() }
+	<input type="hidden" name="action" value="save_update"/>
+	<input type="hidden" name="id" value="${values.get('id',None)}"/>
+	
+	
+	<p>User Name : <input type="text" name="user_name" value="${values.get('user_name','')}"/></p>
+	<p>E-mail : <input type="text" name="email_address" value="${values.get('email_address','')}"/></p>
+	<p>Display Name : <input type="text" name="display_name" value="${values.get('display_name','')}"/></p>
+	<p>Password : <input type="password" name="password" /></p>
+	
+	
+	<input type="submit" value="Save"/>
+</form>
+
+
+<a href="/user?action=update%id=${}">Edit</a>
+<a href="/user?action=view&id=${values.get('id')}">Return</a>

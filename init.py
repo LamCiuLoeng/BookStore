@@ -11,10 +11,11 @@ def setup_db():
     try:
         metadata.create_all(engine)
 
-        admin = User(user_name = "admin", email_address = "lamciuloeng@gmail.ocm", password = "admin")
+        admin = User(user_name = "admin", email_address = "admin@example.com", password = "admin")
+        test = User(user_name = "test", email_address = "test@example.com", password = "test")
+
         gadmin = Group(group_name = "admin")
         gadmin.users.append(admin)
-
         guser = Group(group_name = "user")
 
         DBSession.add_all([admin, gadmin, guser])

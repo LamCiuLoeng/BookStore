@@ -36,6 +36,18 @@ class SysMixin(object):
     def update_by(self):
         return DBSession.query(User).get(self.update_by_id)
 
+    def populate(self):
+        return {}
+
+    @classmethod
+    def save_new(clz, handler):
+        pass
+
+
+    @classmethod
+    def save_update(clz, id, handler):
+        pass
+
 
 #{ Association tables
 
@@ -121,6 +133,33 @@ class User(DeclarativeBase, SysMixin):
     @classmethod
     def identify(cls, value):
         return DBSession.query(cls).filter(cls.user_name.match(value)).one()
+
+    def populate(self):
+        return {
+                "id" : self.id,
+                "user_name" : self.user_name,
+                "email_address" : self.email_address,
+                "display_name" : self.display_name,
+                }
+
+    @classmethod
+    def save_new(clz, handler):
+        params = {
+                  "user_name" : handler.get_argument("user_name", None),
+                  "email_address" : handler.get_argument("email_address", None),
+                  "display_name" : handler.get_argument("display_name", None),
+                  "password" : handler.get_argument("password", None),
+                  }
+        record = clz(**params)
+        DBSession.add(record)
+        return record
+
+    @classmethod
+    def save_update(clz, id, handler):
+        record = DBSession.query(clz).get(id)
+        for f in ["user_name", "email_address", "display_name", "password"]:
+            setattr(record, f, handler.get_argument(f, None))
+        return record
 
 
 class Permission(DeclarativeBase, SysMixin):

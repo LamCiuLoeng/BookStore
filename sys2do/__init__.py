@@ -23,6 +23,8 @@ logging.getLogger().setLevel(app_setting["addition_setting"]["logger_level"])
 application = tornado.web.Application([
     (r"/index", Handler),
     (r"/p", PostHandler),
+    (r"/download", DownloadHandler),
+    (UserHandler.url_prefix, UserHandler),
 ], **app_setting["tornado_setting"])
 
 

@@ -1,0 +1,20 @@
+<%inherit file="master.html"/>
+
+<a href="/user?action=new">Add</a>
+
+<table>
+	%for item in my_page.items:
+		<tr>
+			<td><a href="/user?action=view&id=${item.id}">${item.user_name}</a></td>
+			<td>${item.email_address}</td>
+			<td>${item.display_name}</td>
+			<td>${item.create_time}</td>
+			<td>${item.update_time}</td>
+		</tr>
+	%endfor
+	%if my_page.item_count > 0 :
+	<tfoot>
+		<tr><td>${my_page.pager('$link_first $link_previous ~5~ $link_next $link_last (Page $page of $page_count)')}, total ${my_page.item_count} records</td></tr>
+	</tfoot>
+	%endif
+</table>
