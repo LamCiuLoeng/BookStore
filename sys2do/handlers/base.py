@@ -44,7 +44,11 @@ class BaseHandler(tornado.web.RequestHandler):
             _ = self.locale.translate,
             static_url = self.static_url,
             xsrf_form_html = self.xsrf_form_html,
-            reverse_url = self.application.reverse_url
+            reverse_url = self.application.reverse_url,
+            get_any_permissions = self.get_any_permissions,
+            get_all_permissions = self.get_all_permissions,
+            in_all_groups = self.in_all_groups,
+            in_any_groups = self.in_any_groups,
         )
 #        args.update(self.ui)
         args.update(kwargs)
@@ -101,6 +105,41 @@ class BaseHandler(tornado.web.RequestHandler):
             return (1, None, None, None)
 
 
+    def is_user_login(self):
+        return self.session.get("is_user_login", False)
+
+    def get_any_permissions(self, *permissions):
+        user_permissions = self.session.get("permissions", [])
+        for permission in permissions:
+            if permission in user_permissions: return True
+        return False
+
+    def get_all_permissions(self, *permissions):
+        user_permissions = self.session.get("permissions", [])
+        for permission in permissions:
+            if permission not in user_permissions: return False
+        return True
+
+    def in_any_groups(self, *groups):
+        user_groups = self.session.get("groups", [])
+        for group in groups:
+            if group in user_groups : return True
+        return False
+
+    def in_all_groups(self, *groups):
+        user_groups = self.session.get("groups", [])
+        for group in groups:
+            if group not in user_groups : return False
+        return True
+
+    def get_current_user(self):
+        return self.session.get("user", None)
+
+    def get_user_locale(self):
+        try:
+            return self.session["user"].locale
+        except:
+            return None
 
 
 class MasterHander(BaseHandler):

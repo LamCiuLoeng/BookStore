@@ -1,0 +1,12 @@
+<%inherit file="master.html"/>
+
+<form action="/auth" method="post">
+	${ xsrf_form_html() }
+	<input type="hidden" name="action" value="check"/>
+	<p><input type="text" name="user_name" /></p>
+	<p><input type="password" name="password"/></p>
+	<p><input type="submit" value="submit"/></p>
+	<p><a href="/auth?action=register">Register</a></p>
+	<p><a href="/index">Homepage</a></p>
+</form>
+

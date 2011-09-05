@@ -100,6 +100,7 @@ class User(DeclarativeBase, SysMixin):
     user_name = Column(Unicode(100), unique = True, nullable = False)
     email_address = Column(Unicode(255), nullable = True)
     display_name = Column(Unicode(255))
+    locale = Column(Unicode(10))
     password = Column('password', Unicode(80))
 
     def __repr__(self):

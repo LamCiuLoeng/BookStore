@@ -18,7 +18,7 @@ app_setting = {
                                     "static_path": os.path.join(app_dir, "public"),
                                     "static_url_prefix" : "/public/",
                                     "cookie_secret": "61oETzKXQAGaYdkL5gEmGeJJFuYh7EQnp2XdTP1o/Vo=",
-                                    "login_url": "/login",
+                                    "login_url": "/auth?action=login",
                                     "template_path" : os.path.join(app_dir, "templates"),
                                     "debug" : True,
                                     "xsrf_cookies": True,
