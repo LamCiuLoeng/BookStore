@@ -10,6 +10,7 @@ import os
 import random
 import string
 import tornado.web
+import tornado.locale
 import logging
 import traceback
 import mako.lookup
@@ -29,6 +30,7 @@ class BaseHandler(tornado.web.RequestHandler):
                                           module_directory = app_setting["addition_setting"]["template_path_cache"],
                                           input_encoding = 'utf-8',
                                           output_encoding = 'utf-8')
+
 
 
     def initialize(self, **kw):
@@ -137,8 +139,11 @@ class BaseHandler(tornado.web.RequestHandler):
 
     def get_user_locale(self):
         try:
-            return self.session["user"].locale
+            logging.info(self.session["user"].locale)
+            return tornado.locale.get(self.session["user"].locale)
         except:
+            logging.info("*" * 20)
+            logging.info(traceback.print_exc())
             return None
 
 
@@ -198,7 +203,7 @@ class MasterHander(BaseHandler):
             self.flash("Save the record successfully!")
         except Exception as e:
             DBSession.rollback()
-            self.flash(getattr(e, "msg", None) or "This operation is not available now.")
+            self.flash(getattr(e, "msg", None) or "This operation is not available now!")
             self._new()
         self.redirect("%s?action=view&id=%d" % (self.url_prefix, result.id))
 
@@ -211,7 +216,7 @@ class MasterHander(BaseHandler):
         except Exception as e:
             logging.error(traceback.print_exc())
             DBSession.rollbak()
-            self.flash(getattr(e, "msg", None) or "This operation is not available now.")
+            self.flash(getattr(e, "msg", None) or "This operation is not available now!")
             self._update()
         self.redirect("%s?action=view&id=%d" % (self.url_prefix, result.id))
 
@@ -225,7 +230,7 @@ class MasterHander(BaseHandler):
         action = self.get_argument("action", None)
 
         if action not in self.action_mapping :
-            self.flash("No such action supply!")
+            self.flash("No such action supplied!")
             self.redirect("/index")
 
         fun, permission = self.action_mapping[action]

@@ -25,8 +25,11 @@ app_setting = {
                                     "upload_relative_path" : "upload",
                                     },
                "addition_setting" : {
-                                    "template_path_cache" : os.path.join(os.path.dirname(__file__), "templates_cache"),
+                                    "template_path_cache" : os.path.join(app_dir, "templates_cache"),
                                     "logger_level" : logging.INFO,
+                                    "server_ip" : "localhost",
+                                    "port" : 8888,
+                                    "i18n_dir" : os.path.join(app_dir, "i18n")
                                      },
 
                "session_setting" : {

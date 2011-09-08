@@ -10,6 +10,9 @@ import logging
 import base
 import urllib
 import traceback
+import tornado
+
+
 from sqlalchemy.sql import and_
 from sqlalchemy.orm.exc import  NoResultFound
 
@@ -80,7 +83,7 @@ class AuthHandler(base.MasterHander):
         if self.is_user_login(): self.redirect("/index")
         try:
             user = DBSession.query(User).filter(and_(User.active == 0, User.user_name == self.get_argument("user_name", None))).one()
-            if user.password != self.get_argument("password", None): raise makeException("The password is worng")
+            if user.password != self.get_argument("password", None): raise makeException("The password is worng!")
         except Exception as e:
             if isinstance(e, NoResultFound) : self.flash("The user is not exist!")
             elif getattr(e, "is_customize") : self.flash(str(e))
@@ -92,7 +95,10 @@ class AuthHandler(base.MasterHander):
             self.session["permissions"] = [str(permission) for permission in user.permissions]
             self.session["groups"] = [str(group) for group in user.groups]
             self.session.save()
+            self.locale #set the user's locale
             self.redirect("/index")
+
+
 
     def _logout(self):
         if not self.is_user_login(): self.redirect("/index")

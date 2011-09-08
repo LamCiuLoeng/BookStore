@@ -21,7 +21,7 @@
     //<![CDATA[
           %if handler.need_flash():
           	$(document).ready(function(){
-	          	alert("${handler.flash()}");
+	          	alert("${_(handler.flash())}");
           	});
           %endif
     //]]>

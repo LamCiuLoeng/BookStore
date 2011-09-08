@@ -9,9 +9,12 @@
 <p><a href="/user?action=list">List User</a></p>
 
 %if handler.is_user_login():
-	<p><a href="/auth?action=logout">Logout</a></p>
-	<p>Hello , ${handler.get_current_user()}</p>
+	<p><a href="/auth?action=logout">${_("Logout")}</a></p>
+	<p>${_("Hello ,%s") % handler.get_current_user() }</p>
 %else:
-	<p><a href="${handler.get_login_url()}">Login</a></p>
-	<p><a href="/auth?action=register">Register</a></p>
+	<p><a href="${handler.get_login_url()}">${_("Login")}</a></p>
+	<p><a href="/auth?action=register">${_("Register")}</a></p>
 %endif
+
+
+${_("hello,world")}
